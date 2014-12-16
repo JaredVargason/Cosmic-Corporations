@@ -34,23 +34,7 @@ public class CoinBehavior : MonoBehaviour {
 	{
 		if (other.transform.tag == "Player") 
 		{
-
-			switch (other.transform.parent.GetComponent<RocketBehavior>()._playerNumber)
-			{
-			case 1:
-
-				break;
-			case 2:
-
-				break;
-			case 3:
-
-				break;
-			case 4: 
-
-				break;
-			}
-			Destroy(gameObject);
+				other.transform.parent.GetComponent<RocketInfo>()._money += 100;
 		}
 	}
 }

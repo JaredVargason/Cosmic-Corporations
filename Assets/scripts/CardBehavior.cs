@@ -33,21 +33,7 @@ public class CardBehavior : MonoBehaviour
 	{
 		if (other.transform.tag == "Player") 
 		{
-			switch (other.transform.parent.GetComponent<RocketBehavior> ()._playerNumber) 
-			{
-			case 1:
-					BoardGameHandler._numberOfCards1++;
-					break;
-			case 2:
-					BoardGameHandler._numberOfCards2++;
-					break;
-			case 3:
-					BoardGameHandler._numberOfCards3++;
-					break;
-			case 4: 
-					BoardGameHandler._numberOfCards4++;
-					break;
-			}
+			other.transform.parent.GetComponent<RocketInfo>()._cardsCollected += 1;
 
 			Destroy (gameObject);
 		}

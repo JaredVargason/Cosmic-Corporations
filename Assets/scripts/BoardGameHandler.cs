@@ -8,14 +8,14 @@ public class BoardGameHandler : MonoBehaviour
 	public static float _startingSpeed = 3.0f;
 
 	//This script contains player information on upgrades, money, and cards owned.
-	public static float _totalMoney1 = 1000.0f;
+	public static float _totalMoney1 = _startingMoney;
 	public static float _totalMoney2 = _startingMoney;
 	public static float _totalMoney3 = _startingMoney;
 	public static float _totalMoney4 = _startingMoney;
 
 	public static float _fuel1 = 120.0f;
 	public static float _fuel2 = 120.0f;
-	public static float _fuel3 = 120.0f;
+	public static float _fuel3 = 5.0f;
 	public static float _fuel4 = 5.0f;
 
 	public static float _speed1 = 4.0f;
