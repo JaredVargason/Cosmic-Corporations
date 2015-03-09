@@ -4,58 +4,83 @@ using System.Collections;
 public class DoneManager : MonoBehaviour {
 
 	public int _playerNumber;
-	public bool _pressed = false;
-	public bool _donezo = false;
-	public bool _triggered;
+	public bool _pressed;
 
-	void Update () 
+	void Start ()
 	{
 		_pressed = false;
-
-		switch (_playerNumber)
-		{ 
-			case 1:
-				if (Input.GetAxis("Thrust Ship 1") == 1 && _triggered == true)
-				{
-					_pressed = true;
-				}
-				break;
-		}
-			
-		if (!_donezo && !_triggered)
-		{
-			renderer.material.color = Color.red;
-		}
-	
-		else if (_triggered)
-		{
-			if (_pressed)
-			{
-				_donezo = true;
-			}
-
-			if (!_donezo)
-			{
-				renderer.material.color = Color.white;
-			}
-
-			else 
-			{
-				renderer.material.color = Color.green;
-			}
-		}
+		renderer.material.color = Color.red;
 	}
 
 	void OnTriggerEnter()
 	{
-		_triggered = true;
+		if (_pressed == false)
+		{   
+            renderer.enabled = true;
+			renderer.material.color = Color.white;
+		}
+	}
+
+	void OnTriggerStay()
+	{
+
+		switch (_playerNumber)
+		{ 
+		case 1:
+			if (Input.GetAxis("A1") == 1)
+			{
+				_pressed = true;
+				if (_pressed)
+				{
+					renderer.material.color = Color.green;
+				}
+			}
+			
+			break;
+			
+		case 2:
+			if (Input.GetAxis("A2") == 1)
+			{
+				_pressed = true;
+				if (_pressed)
+				{
+					renderer.material.color = Color.green;
+				}
+			}
+			
+			break;
+			
+		case 3:
+			if (Input.GetAxis("A3") == 1)
+			{
+				_pressed = true;
+				if (_pressed)
+				{
+					renderer.material.color = Color.green;
+				}
+			}
+			
+			break;
+			
+		case 4:
+			if (Input.GetAxis("A4") == 1)
+			{
+				_pressed = true;
+				if (_pressed)
+				{
+                    renderer.material.color = Color.green;
+				}
+			}
+			
+			break;
+		}
 	}
 
 	void OnTriggerExit()
 	{
-		if (_pressed != true)
+		if (_pressed == false)
 		{
-			_triggered = false;
+			renderer.enabled = false;
 		}
 	}	
 }

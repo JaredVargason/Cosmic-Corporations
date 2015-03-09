@@ -3,10 +3,9 @@ using System.Collections;
 
 public class PowerupManager : MonoBehaviour 
 {
-	public int _powerupNumber;
+	/*public int _powerupNumber;
 	public TextMesh _textCost;
 	public TextMesh _textValue;
-	public TextMesh _textCurrent;
 	public bool _bought = false;
 	public float _cost;
 	public Material _availableMaterial;
@@ -42,7 +41,7 @@ public class PowerupManager : MonoBehaviour
 		{
 			gameObject.transform.renderer.material = _cursorMaterial;
 			
-			if (Input.GetAxis("Thrust Ship 1") == 1) 
+			if (Input.GetAxis("A1") == 1) 
 			{
 				_bought = true;
 				BoardGameHandler._totalMoney1 -= _cost;
@@ -70,16 +69,14 @@ public class PowerupManager : MonoBehaviour
 	{
 		_textCost.renderer.enabled = true;
 		_textValue.renderer.enabled = true;
-		_textCurrent.renderer.enabled = true;
-		
+
 		_textCost.text = "$" + _cost;
 		_textValue.text = "1 Missle";
-		_textCurrent.text = "";
 	}
 	
 	void OnTriggerExit(Collider other)
 	{
 		_triggered = false;
-	}
+	}*/
 	
 }

@@ -29,12 +29,16 @@ public class PauseMenu : MonoBehaviour {
 		{
 			Time.timeScale = 0;
 			_pauseCamera.enabled = true;
+			foreach (GameObject element in PauseItems)
+			{
+				element.renderer.enabled = true;
+			}
 
-			if (Input.GetAxis("MenuY") != 0 && !_action)
+			if (Input.GetAxisRaw("Vertical 1") != 0 && !_action)
 			{
 				PauseItems[_selected].renderer.material.color = Color.white;
 
-				if (Input.GetAxis("MenuY") < 0)
+				if (Input.GetAxisRaw("Vertical 1") < 0)
 				{
 					_selected--;
 				}
@@ -44,9 +48,14 @@ public class PauseMenu : MonoBehaviour {
 					_selected++;
 				}
 
-				if (_selected > 1 || _selected < 0)
+				if (_selected > 1)
 				{
 					_selected = 0;
+				}
+
+				if (_selected < 0)
+				{
+					_selected = 1;
 				}
 
 				PauseItems[_selected].renderer.material.color = Color.yellow;
@@ -54,12 +63,12 @@ public class PauseMenu : MonoBehaviour {
 				_action = true;
 			}
 
-			if (Input.GetAxis("MenuY") == 0)
+			if (Input.GetAxisRaw("Vertical 1") == 0)
 			{
 				_action = false;
 			}
 			
-			if (Input.GetAxisRaw("Thrust Ship 1") == 1)
+			if (Input.GetAxisRaw("A1") == 1)
 			{
 				switch (_selected)
 				{
@@ -69,7 +78,6 @@ public class PauseMenu : MonoBehaviour {
 						
 					case 1:
 						Time.timeScale = 1;
-						BoardGameHandler.ResetGame();
 						Application.LoadLevel(0);
 						break;
 
@@ -83,6 +91,10 @@ public class PauseMenu : MonoBehaviour {
 		
 		else
 		{
+			foreach (GameObject element in PauseItems)
+			{
+				element.renderer.enabled = false;
+			}
 			Time.timeScale = 1;
 			_pauseCamera.enabled = false;
 		}

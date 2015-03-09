@@ -5,16 +5,11 @@ public class IShouldntBeAlive : MonoBehaviour {
 
 	public int _playerNumber;
 
-	// Use this for initialization
-	void Start () {
-		if (Menu._numberOfPlayers < _playerNumber)
+	void Start () 
+    {
+		if (PlayMenu._numberOfPlayers < _playerNumber)
 		{
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

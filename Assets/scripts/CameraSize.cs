@@ -10,7 +10,7 @@ public class CameraSize : MonoBehaviour {
 	void Awake() 
 	{
 
-		switch (Menu._numberOfPlayers) {
+		switch (PlayMenu._numberOfPlayers) {
 		case 1:
 			_camera1.enabled = true;
 			_camera2.enabled = false;

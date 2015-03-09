@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 04525e1eacce80c43b3dc4363621aed8
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - _clip1: {fileID: 8300000, guid: e3b772c53d6a6cd48a14e20e8c992f72, type: 3}
+  - _clip2: {instanceID: 0}
+  - _clip3: {instanceID: 0}
+  - _clip4: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

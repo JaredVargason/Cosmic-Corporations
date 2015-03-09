@@ -1,89 +1,99 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Menu : MonoBehaviour 
+public class Menu : AbstractMenu 
 {
-
-	public static int _numberOfPlayers = 1;
-	public static int _gameMode = 0;
-	public int _selected = 0;
-	public bool _action = false;
+	public SettingsMenu _settingsMenu;
+    public PlayMenu _playMenu;
+    public ExtrasMenu _extrasMenu;
+    
 	public GameObject[] MenuItems = new GameObject[4];
-
-	
+    
 	void Awake () 
 	{
-
-	}
-
-	void Start () 
-	{
-		MenuItems [0] = GameObject.Find ("PLAY");
+        _camera.transform.position = new Vector3(0, 3.57f, -53.3f);
+        _camera.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+		_source = GetComponent<AudioSource> ();
+        
 		MenuItems [0].renderer.material.color = Color.yellow;
-		MenuItems [1] = GameObject.Find ("SETTINGS"); 
-		MenuItems [2] = GameObject.Find ("EXTRAS");
-		MenuItems [3] = GameObject.Find ("QUIT");
+        
+        float x;
+        float y;
+        float z;
+        
+        x = MenuItems[_selected].transform.localScale.x * 1.1f;
+        y = MenuItems[_selected].transform.localScale.y * 1.1f;
+        z = MenuItems[_selected].transform.localScale.z;
+        MenuItems[0].transform.localScale = new Vector3(x, y, z);
 	}
-
+    
 	void Update () 
 	{
-		if (Input.GetAxis("MenuY") != 0 && _action == false)
+        getInput();
+        
+        foreach(Transform child in transform)
+        {
+            child.renderer.enabled = true;
+        }
+        
+        _camera.transform.position = Vector3.Lerp(_camera.transform.position, _destination.position, Time.deltaTime * 3f);
+        _camera.transform.rotation = Quaternion.Lerp(_camera.transform.rotation, Quaternion.Euler(new Vector3(0, 0, 0)), Time.deltaTime * 3f);
+        
+        float x;
+        float y;
+        float z;
+        
+		if (vertical != 0)
 		{
+			_source.PlayOneShot(_cursor);
 			MenuItems[_selected].renderer.material.color = Color.white;
-			if (Input.GetAxis("MenuY") < 0)
-			{
-				_selected -= 1;
-			}
+            x = MenuItems[_selected].transform.localScale.x / 1.1f;
+            y = MenuItems[_selected].transform.localScale.y / 1.1f;
+            z = MenuItems[_selected].transform.localScale.z;
+            MenuItems[_selected].transform.localScale = new Vector3(x, y, z);
 
-			else
-			{
-				_selected += 1;
-			}
-
-			if (_selected > 3) 
-			{
-				_selected = 0;
-			}
-
-			else if (_selected < 0) 
-			{
-				_selected = 3;
-			}
+			_selected = IntBounds.SetInt(_selected, -vertical, 0, 3);
 
 			MenuItems[_selected].renderer.material.color = Color.yellow;
-
-			_action = true;
+            x = MenuItems[_selected].transform.localScale.x * 1.1f;
+            y = MenuItems[_selected].transform.localScale.y * 1.1f;
+            z = MenuItems[_selected].transform.localScale.z;
+            MenuItems[_selected].transform.localScale = new Vector3(x, y, z);
 		}
 
-		if (Input.GetAxis("MenuY") == 0)
+		if (a == true) 
 		{
-			_action = false;
-		}
-
-		if (Input.GetAxis("Thrust Ship 1") == 1) 
-		{
-			GameObject picked = MenuItems[_selected];
+            foreach(Transform child in transform)
+            {
+                child.renderer.enabled = false;
+            }
+            
 			switch (_selected) 
 			{
 				case 0:
-				Application.LoadLevel(1); //need to scene fade
-				break;
+					_source.PlayOneShot(_confirm, 1f);
+                    _playMenu.enabled = true;
+                    this.enabled = false;
+					break;
 
 				case 1:
-				break;
+					_source.PlayOneShot(_confirm, 1f);
+					_settingsMenu.enabled = true;
+					this.enabled = false;
+					break;
 
 				case 2:
-				break;
+                    _extrasMenu.enabled = true;
+                    _source.PlayOneShot(_confirm);
+                    this.enabled = false;
+					
+					break;
 
 				case 3:
-				Application.Quit();
-				break;
+                    PlayerPrefs.Save(); //Unnecessary
+					Application.Quit();
+					break;
 			}
 		}
-	}
-
-	void Select()
-	{
-
 	}
 }

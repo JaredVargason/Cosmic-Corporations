@@ -6,6 +6,7 @@ public class SceneFade : MonoBehaviour
 	public float fadeSpeed = 3f;
 	public int levelToLoad;
 	private bool sceneStarting = true;
+	private bool sceneEnding = false;
 	
 	
 	void Awake ()
@@ -37,7 +38,10 @@ public class SceneFade : MonoBehaviour
 	
 	void StartScene ()
 	{
-		FadeToClear();
+		if (!sceneEnding)
+		{
+			FadeToClear();
+		}
 
 		if(guiTexture.color.a <= 0.001f)
 		{
@@ -51,12 +55,20 @@ public class SceneFade : MonoBehaviour
 	
 	public void EndScene ()
 	{
+		if (!sceneEnding)
+		{
+			guiTexture.color = Color.clear;
+		}
+
 		guiTexture.enabled = true;
 
 		FadeToBlack();
 
-		if(guiTexture.color.a >= 0.70f)
-
+		if(guiTexture.color.a >= 0.80f)
+		{
 			Application.LoadLevel(levelToLoad);
+		}
+
+		sceneEnding = true;
 	}
 }
